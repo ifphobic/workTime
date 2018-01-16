@@ -1,0 +1,14 @@
+
+month.file.folder=data
+report.number.of.columns=3
+report.day.height=20
+report.day.width=200
+report.text.offset=5
+
+target.time.ratio=0.8
+standard.target.time=8
+line.color=#000000
+
+target.time.color=#ff0000
+work.time.color=#009900
+over.time.color=#00ff00
