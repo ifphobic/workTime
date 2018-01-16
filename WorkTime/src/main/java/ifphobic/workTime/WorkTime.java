@@ -39,7 +39,7 @@ public class WorkTime {
 		frame.setLocation(0, height - frame.getHeight());
 		frame.setVisible(true);	
 		
-		new Report();
+//		new Report();
 	}
 
 	private Color getToggleColor() {
