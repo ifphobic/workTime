@@ -15,6 +15,7 @@ import javax.xml.bind.annotation.XmlAccessOrder;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -34,6 +35,7 @@ public class Month {
 	@XmlAttribute
 	private int month;
 	
+	@XmlElement(name="day")
 	private List<Day> days = new ArrayList<>();
 
 	private Month() {}
