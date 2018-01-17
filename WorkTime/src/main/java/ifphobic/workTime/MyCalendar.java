@@ -5,6 +5,8 @@ import java.util.GregorianCalendar;
 
 public class MyCalendar {
 
+	private static final int[] DAYS = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+	
 	private long lastUpdate;
 	private Calendar calendar;
 	
@@ -50,6 +52,43 @@ public class MyCalendar {
 	
 	public static int getSecond() {
 		return instance.getCalendar().get(Calendar.SECOND);
+	}
+	
+	public static int getNumberOfDays(int year, int month) {
+		return DAYS[month - 1];
+	}
+	
+	public static String printableTime(Double time) {
+		if (time == null) {
+			return "";
+		}
+		String result = "";
+		long minute = Math.round(time * 60);
+		if (minute < 0) {
+			minute *= -1;
+			result = "-";
+		}
+
+		long hour = minute / 60;
+		minute = minute % 60;
+
+		if (hour < 10) {
+			result += "0";
+		}
+		result += hour + ":";
+		if (minute < 10) {
+			result += "0";
+		}
+		result += minute;
+		return result;
+	}
+	
+	public static boolean isWeekend(int year, int month, int day) {
+		Calendar calendar = GregorianCalendar.getInstance();
+		calendar.set(year, month - 1, day);
+		int weekDay = calendar.get(Calendar.DAY_OF_WEEK);
+		boolean result = weekDay == Calendar.SUNDAY || weekDay == Calendar.SATURDAY;
+		return result;
 	}
 	
 }

@@ -1,7 +1,9 @@
-/target/
-/statistic.txt
-/statistic.xml
-/.classpath
-/.project
-/.settings/
-/bin/
+/WorkTime/data/
+/WorkTime/target/
+/WorkTime/statistic.txt
+/WorkTime/statistic.xml
+/WorkTime/.classpath
+/WorkTime/.project
+/WorkTime/.settings/
+/WorkTime/bin/
+.DS_Store

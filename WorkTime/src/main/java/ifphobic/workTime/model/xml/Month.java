@@ -76,14 +76,14 @@ public class Month {
 		return read(file);
 	}
 	
-	public static Map<Integer, Map<Integer, Month>> readMonths() {
-		 Map<Integer, Map<Integer, Month>> result = new TreeMap<>();
+	public static TreeMap<Integer, TreeMap<Integer, Month>> readMonths() {
+		TreeMap<Integer, TreeMap<Integer, Month>> result = new TreeMap<>();
 		 
 		 File folder = Property.MONTH_FILE_FOLDER.getFile();
 		 File[] files = folder.listFiles(file -> filter(file));
 		for (File file : files) {
 			Month month = read(file);
-			Map<Integer, Month> map = result.get(month.getYear());
+			TreeMap<Integer, Month> map = result.get(month.getYear());
 			if (map == null) {
 				map = new TreeMap<>();
 				result.put(month.getYear(), map);

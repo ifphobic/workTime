@@ -2,36 +2,39 @@ package ifphobic.workTime.model;
 
 public class ReportDay {
 
-	
-	private final double workTime;
-	private final double targetTime;
-
-	private final DayType dayType;
-
-	public ReportDay(double workTime, double targetTime, DayType dayType) {
-		super();
-		this.workTime = workTime;
-		this.targetTime = targetTime;
-		this.dayType = dayType;
-	}
+	private double workTime;
+	private double targetTime;
+	private DayType dayType;
 
 	public double getWorkTime() {
 		return workTime;
+	}
+
+	public void setWorkTime(double workTime) {
+		this.workTime = workTime;
 	}
 
 	public double getTargetTime() {
 		return targetTime;
 	}
 
+	public void setTargetTime(double targetTime) {
+		this.targetTime = targetTime;
+	}
+
 	public DayType getDayType() {
 		return dayType;
 	}
-	
-	public String getDelta() {
+
+	public void setDayType(DayType dayType) {
+		this.dayType = dayType;
+	}
+
+	public Double getDelta() {
 		if (workTime == 0 && targetTime == 0) {
-			return "";
+			return null;
 		}
-		return workTime - targetTime + "";
+		return workTime - targetTime;
 	}
 
 }

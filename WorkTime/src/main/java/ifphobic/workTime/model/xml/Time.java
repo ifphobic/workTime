@@ -38,4 +38,14 @@ public class Time {
 		return result;
 	}
 	
+	public double minus(Time other) {
+		long mySeconds = toSeconds();
+		long otherSeconds = other.toSeconds();
+		return (mySeconds - otherSeconds) / 3600.0;
+	}
+	
+	private int toSeconds() {
+		return hour * 3600 + minute * 60 + second;
+	}
+	
 }

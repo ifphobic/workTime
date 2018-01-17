@@ -56,6 +56,16 @@ public class Day {
 	public void setPauses(List<Pause> pauses) {
 		this.pauses = pauses;
 	}
+
+	public double getWortTime() {
+			double workTime = end.minus(start);
+			for (Pause pause : pauses) {
+				workTime -= pause.getEnd().minus(pause.getStart());
+			}
+
+		
+		return workTime;
+	}
 	 
 	
 	

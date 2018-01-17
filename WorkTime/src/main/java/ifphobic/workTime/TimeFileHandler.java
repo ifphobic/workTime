@@ -15,16 +15,16 @@ public class TimeFileHandler {
 	public TimeFileHandler() {
 		if (currentDay.getStart() == null) {
 			currentDay.setStart(Time.now());
-			month.write();
 		}
-
-		if (currentDay.getEnd() != null) {
-			currentDay.setEnd(null);
-			month.write();
-		}
+		
+		currentDay.setEnd(Time.now());
+	    month.write();
 	}
 
 	public void end() {
+		if (inPause()) {
+			togglePause();
+		}
 		currentDay.setEnd(Time.now());
 		month.write();
 	}
