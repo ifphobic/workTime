@@ -62,7 +62,7 @@ public class MyCalendar {
 		if (time == null) {
 			return "";
 		}
-		String result = "";
+		String result = "+";
 		long minute = Math.round(time * 60);
 		if (minute < 0) {
 			minute *= -1;
