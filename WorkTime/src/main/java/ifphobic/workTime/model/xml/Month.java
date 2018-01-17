@@ -118,7 +118,8 @@ public class Month {
 	}
 	
 	private static File createFile(int year, int month) {
-		String filename = year +"-" + month + ".xml";
+		String leadingZero = (month < 10) ? "0" : ""; 
+		String filename = year +"-" + leadingZero + month + ".xml";
 		File folder = Property.MONTH_FILE_FOLDER.getFile();
 		File file = new File(folder, filename);
 		return file;
