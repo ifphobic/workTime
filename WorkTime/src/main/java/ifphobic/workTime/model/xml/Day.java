@@ -1,5 +1,7 @@
 package ifphobic.workTime.model.xml;
 
+import java.time.Duration;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,10 +10,8 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-
-@XmlType (propOrder={"day","start", "end", "pauses"})
+@XmlType(propOrder = { "day", "start", "end", "pauses" })
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Day {
 
@@ -19,12 +19,12 @@ public class Day {
 	private int day;
 
 	@XmlAttribute
-	private Time start;
+	private LocalTime start;
 
 	@XmlAttribute
-	private Time end;
-	
-	@XmlElement(name="pause")
+	private LocalTime end;
+
+	@XmlElement(name = "pause")
 	private List<Pause> pauses = new ArrayList<>();
 
 	public int getDay() {
@@ -35,19 +35,19 @@ public class Day {
 		this.day = day;
 	}
 
-	public Time getStart() {
+	public LocalTime getStart() {
 		return start;
 	}
 
-	public void setStart(Time start) {
+	public void setStart(LocalTime start) {
 		this.start = start;
 	}
 
-	public Time getEnd() {
+	public LocalTime getEnd() {
 		return end;
 	}
 
-	public void setEnd(Time end) {
+	public void setEnd(LocalTime end) {
 		this.end = end;
 	}
 
@@ -59,16 +59,12 @@ public class Day {
 		this.pauses = pauses;
 	}
 
-	public double getWortTime() {
-			double workTime = end.minus(start);
-			for (Pause pause : pauses) {
-				workTime -= pause.getEnd().minus(pause.getStart());
-			}
-
-		
+	public Duration getWorkTime() {
+		Duration workTime = Duration.between(start, end);
+		for (Pause pause : pauses) {
+			workTime = workTime.minus(Duration.between(pause.getStart(), pause.getEnd()));
+		}
 		return workTime;
 	}
-	 
-	
-	
+
 }

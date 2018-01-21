@@ -57,31 +57,7 @@ public class MyCalendar {
 	public static int getNumberOfDays(int year, int month) {
 		return DAYS[month - 1];
 	}
-	
-	public static String printableTime(Double time) {
-		if (time == null) {
-			return "";
-		}
-		String result = "+";
-		long minute = Math.round(time * 60);
-		if (minute < 0) {
-			minute *= -1;
-			result = "-";
-		}
 
-		long hour = minute / 60;
-		minute = minute % 60;
-
-		if (hour < 10) {
-			result += "0";
-		}
-		result += hour + ":";
-		if (minute < 10) {
-			result += "0";
-		}
-		result += minute;
-		return result;
-	}
 	
 	public static boolean isWeekend(int year, int month, int day) {
 		Calendar calendar = GregorianCalendar.getInstance();

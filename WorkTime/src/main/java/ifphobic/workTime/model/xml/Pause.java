@@ -1,5 +1,7 @@
 package ifphobic.workTime.model.xml;
 
+import java.time.LocalTime;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -10,21 +12,21 @@ import javax.xml.bind.annotation.XmlType;
 public class Pause {
 
 	@XmlAttribute
-	private Time start;
+	private LocalTime start;
 	
 	@XmlAttribute
-	private Time end;
+	private LocalTime end;
 	
-	public Time getStart() {
+	public LocalTime getStart() {
 		return start;
 	}
-	public void setStart(Time start) {
+	public void setStart(LocalTime start) {
 		this.start = start;
 	}
-	public Time getEnd() {
+	public LocalTime getEnd() {
 		return end;
 	}
-	public void setEnd(Time end) {
+	public void setEnd(LocalTime end) {
 		this.end = end;
 	}
 }

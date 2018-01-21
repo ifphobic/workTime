@@ -1,10 +1,11 @@
 
-month.file.folder=data
+base.folder=data
 report.number.of.columns=3
 report.day.height=20
 report.day.width=200
 report.text.offset=5
 
+holiday.file=holiday.xml
 target.time=8
 target.time.ratio=0.8
 standard.target.time=8

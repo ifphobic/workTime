@@ -1,9 +1,9 @@
 package ifphobic.workTime.model.xml;
 
 import java.io.File;
+import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.TreeMap;
 import java.util.regex.Pattern;
 
@@ -11,7 +11,6 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
-import javax.xml.bind.annotation.XmlAccessOrder;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -55,21 +54,27 @@ public class Month {
 	}
 	
 	
-	public void write() {
-		File file = createFile(year, month);
+	public synchronized void write() {
+		File file = createFile(year, month, true);
 		
 		try {
 			JAXBContext context = JAXBContext.newInstance(Month.class);
 			Marshaller marshaller = context.createMarshaller();
 			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 			marshaller.marshal(this, file);
-		} catch (JAXBException e) {
+			
+			File oldFile = createFile(year, month, false);
+			if (oldFile.exists()) {
+				oldFile.delete();
+			}
+			file.renameTo(oldFile);
+		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}	
 	}
 	
 	public static Month readCurrent() {
-		File file = createFile(MyCalendar.getYear(), MyCalendar.getMonth());
+		File file = createFile(MyCalendar.getYear(), MyCalendar.getMonth(), false);
 		if (!file.exists()) {
 			Month result = new Month();
 			result.initialize();
@@ -78,21 +83,16 @@ public class Month {
 		return read(file);
 	}
 	
-	public static TreeMap<Integer, TreeMap<Integer, Month>> readMonths() {
-		TreeMap<Integer, TreeMap<Integer, Month>> result = new TreeMap<>();
+	public static TreeMap<YearMonth, Month> readMonths() {
+		TreeMap<YearMonth, Month> result = new TreeMap<>();
 		 
-		 File folder = Property.MONTH_FILE_FOLDER.getFile();
+		 File folder = Property.BASE_FOLDER.getFile();
 		 File[] files = folder.listFiles(file -> filter(file));
 		for (File file : files) {
 			Month month = read(file);
-			TreeMap<Integer, Month> map = result.get(month.getYear());
-			if (map == null) {
-				map = new TreeMap<>();
-				result.put(month.getYear(), map);
-			}
-			map.put(month.getMonth(), month);
-			
-		}	
+			YearMonth key = YearMonth.of(month.getYear(), month.getMonth());
+			result.put(key, month);
+		}
 		return result;
 	}
 
@@ -117,15 +117,17 @@ public class Month {
 		month = MyCalendar.getMonth();
 	}
 	
-	private static File createFile(int year, int month) {
+	private static File createFile(int year, int month, boolean temporary) {
 		String leadingZero = (month < 10) ? "0" : ""; 
 		String filename = year +"-" + leadingZero + month + ".xml";
-		File folder = Property.MONTH_FILE_FOLDER.getFile();
+		if (temporary) {
+			filename += ".temp";
+		}
+		File folder = Property.BASE_FOLDER.getFile();
 		File file = new File(folder, filename);
 		return file;
 	}
-	
-	
+
 	public int getYear() {
 		return year;
 	}

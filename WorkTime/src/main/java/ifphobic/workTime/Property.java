@@ -4,12 +4,13 @@ import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.Duration;
 import java.util.Properties;
 
 
 public enum Property {
 
-	MONTH_FILE_FOLDER,
+	BASE_FOLDER,
 	REPORT_DAY_HEIGHT,
 	REPORT_DAY_WIDTH,
 	REPORT_TEXT_OFFSET,
@@ -19,6 +20,7 @@ public enum Property {
 	WORK_TIME_COLOR,
 	OVER_TIME_COLOR,
 	
+	HOLIDAY_FILE,
 	TARGET_TIME,
 	TARGET_TIME_RATIO,
 	STANDARD_TARGET_TIME,
@@ -64,6 +66,12 @@ public enum Property {
 
 	public double getDouble() {
 		return Double.parseDouble(get());
+	}
+	
+	public Duration getDuration() {
+		double seconds = getDouble() * 3600 + 0.5;
+		Duration result = Duration.ofSeconds((long)seconds);
+		return result;
 	}
 	
 

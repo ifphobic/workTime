@@ -1,25 +1,28 @@
 package ifphobic.workTime.model;
 
+import java.time.Duration;
+
 public class ReportDay {
 
-	private double workTime;
-	private double targetTime;
+	private Duration workTime;
+	private Duration targetTime;
 	private DayType dayType;
 
-	public double getWorkTime() {
-		return workTime;
-	}
-
-	public void setWorkTime(double workTime) {
+	public void setWorkTime(Duration workTime) {
 		this.workTime = workTime;
 	}
 
-	public double getTargetTime() {
+
+	public Duration getTargetTime() {
 		return targetTime;
 	}
 
-	public void setTargetTime(double targetTime) {
+	public void setTargetTime(Duration targetTime) {
 		this.targetTime = targetTime;
+	}
+
+	public Duration getWorkTime() {
+		return workTime;
 	}
 
 	public DayType getDayType() {
@@ -30,11 +33,13 @@ public class ReportDay {
 		this.dayType = dayType;
 	}
 
-	public Double getDelta() {
-		if (workTime == 0 && targetTime == 0) {
-			return null;
-		}
-		return workTime - targetTime;
+	public Duration getDelta() {
+		return workTime.minus(targetTime);
+	}
+
+
+	public boolean isPrint() {
+		return !workTime.isZero() || !targetTime.isZero();
 	}
 
 }

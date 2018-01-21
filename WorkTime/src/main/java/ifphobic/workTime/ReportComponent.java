@@ -1,13 +1,10 @@
 package ifphobic.workTime;
 
-import java.awt.Color;
 import java.awt.Graphics;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JComponent;
 
-import ifphobic.workTime.model.DayType;
 import ifphobic.workTime.model.ReportDay;
 import ifphobic.workTime.model.ReportMonth;
 
@@ -36,11 +33,10 @@ public class ReportComponent extends JComponent {
 		int height = Property.REPORT_DAY_HEIGHT.getInt();
 
 		double standardTargetTimeWidth = width * Property.TARGET_TIME_RATIO.getDouble();
-		double targetTimeWidth = standardTargetTimeWidth * day.getTargetTime()
+		double targetTimeWidth = standardTargetTimeWidth * DateHelper.asDouble(day.getTargetTime()) / Property.STANDARD_TARGET_TIME.getDouble();
+		double workTimeWidth = standardTargetTimeWidth * DateHelper.asMinDouble(day.getWorkTime(), day.getTargetTime())
 				/ Property.STANDARD_TARGET_TIME.getDouble();
-		double workTimeWidth = standardTargetTimeWidth * Math.min(day.getWorkTime(), day.getTargetTime())
-				/ Property.STANDARD_TARGET_TIME.getDouble();
-		double overTimeWidth = standardTargetTimeWidth * day.getWorkTime() / Property.STANDARD_TARGET_TIME.getDouble();
+		double overTimeWidth = standardTargetTimeWidth * DateHelper.asDouble(day.getWorkTime()) / Property.STANDARD_TARGET_TIME.getDouble();
 
 		int y = yOffset * height;
 		int x = xOffset * (width + 5) + 5;
@@ -58,12 +54,15 @@ public class ReportComponent extends JComponent {
 		g.fillRect(x, y, round(workTimeWidth), height);
 
 		g.setColor(Property.LINE_COLOR.getColor());
-		g.drawString(MyCalendar.printableTime(day.getDelta()), x + 5, y + height - Property.REPORT_TEXT_OFFSET.getInt());
+		if (day.isPrint()) {
+			g.drawString(DateHelper.printableDuration(day.getDelta()), x + 5, y + height - Property.REPORT_TEXT_OFFSET.getInt());
+		}
 		g.drawLine(x, y, x + width, y);
 		g.drawLine(x, y + height, x + width, y + height);
 
 	}
 
+	
 	private int round(double value) {
 		return (int) (value + 0.5);
 	}

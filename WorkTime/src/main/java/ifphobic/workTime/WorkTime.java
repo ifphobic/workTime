@@ -12,8 +12,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JToggleButton;
 
-import org.omg.CORBA.portable.ApplicationException;
-
 
 public class WorkTime {
 
@@ -28,7 +26,7 @@ public class WorkTime {
 		Toolkit kit = Toolkit.getDefaultToolkit();
 		Image image = kit.createImage(url);
         
-		com.apple.eawt.Application.getApplication().setDockIconImage(image);
+		//com.apple.eawt.Application.getApplication().setDockIconImage(image);
 		
 		JFrame frame = new JFrame();
 		frame.setIconImage(image);
@@ -39,13 +37,9 @@ public class WorkTime {
 		
 		pauseButton = new JToggleButton("Pause");
 		pauseButton.setForeground(getToggleColor());
-		pauseButton.setSelected(timeFileHandler.inPause());
 		pauseButton.addActionListener(e -> togglePause());
 		frame.getContentPane().add(pauseButton);
 		
-		JButton endButton = new JButton("Close");
-		endButton.addActionListener(e -> close());
-		frame.getContentPane().add(endButton);
 		reportButton = new JButton("|||");
 		reportButton.setForeground(Color.GREEN);
 		reportButton.addActionListener(e -> toggleReport());
@@ -78,11 +72,6 @@ public class WorkTime {
 	private void togglePause() {
 		timeFileHandler.togglePause();
 		pauseButton.setForeground(getToggleColor());
-	}
-	
-	private void close() {
-		timeFileHandler.end();
-		System.exit(0);
 	}
 
 	public static void main(String[] args) {
