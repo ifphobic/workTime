@@ -67,7 +67,9 @@ public class ReportGenerator {
 				int numberOfDays = MyCalendar.getNumberOfDays(year, month);
 				for(int day = 1; day <= numberOfDays; day++) {
 					ReportDay reportDay = createReportDay(year, month, day, workTimes, holidays);
-					reportMonth.addDelta(reportDay.getDelta());
+					if (!LocalDate.now().equals(LocalDate.of(year, month, day))) {
+						reportMonth.addDelta(reportDay.getDelta());
+					}
 					reportMonth.getReportDays().add(reportDay);
 				}
 			}

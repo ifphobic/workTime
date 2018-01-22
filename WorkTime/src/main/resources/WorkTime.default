@@ -4,6 +4,7 @@ report.number.of.columns=3
 report.day.height=20
 report.day.width=200
 report.text.offset=5
+report.month.margin=20
 
 holiday.file=holiday.xml
 target.time=8
@@ -14,3 +15,5 @@ line.color=#000000
 target.time.color=#ff0000
 work.time.color=#009900
 over.time.color=#00ff00
+max.over.time.color=#ffff00
+text.color=#ffffff
