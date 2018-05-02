@@ -20,7 +20,7 @@ public class ReportComponent extends JComponent {
 	public void paint(Graphics g) {
 		setOpaque(true);
 		for (int x = 0; x < report.size(); x++) {
-			ReportMonth month = report.get(x);
+			ReportMonth month = report.get(report.size() - 1 - x);
 			g.setColor(Property.TEXT_COLOR.getColor());
 			int xOffset = x * (Property.REPORT_DAY_WIDTH.getInt() + Property.REPORT_MONTH_MARGIN.getInt()) + Property.REPORT_TEXT_OFFSET.getInt();
 			int yOffset = Property.REPORT_DAY_HEIGHT.getInt() - Property.REPORT_TEXT_OFFSET.getInt();

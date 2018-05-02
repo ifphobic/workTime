@@ -40,7 +40,7 @@ public class Report {
 		frame.setBackground(new Color(0.0f,0.0f,0.0f,0.5f));
 		frame.getContentPane().setLayout(new FlowLayout());
 		
-		Dimension size = new Dimension(900, Property.REPORT_DAY_HEIGHT.getInt() * 32); 
+		Dimension size = new Dimension(880, Property.REPORT_DAY_HEIGHT.getInt() * 32); 
 		GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
 		int height = device.getDisplayMode().getHeight();
 		int width = device.getDisplayMode().getWidth();
